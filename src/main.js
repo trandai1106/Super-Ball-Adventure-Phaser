@@ -16,12 +16,12 @@ export default new Phaser.Game({
         Pause
     ],
     physics: {
-        default: 'matter',
-        matter: {
-            debug: true,
+        default: 'arcade',
+        arcade: {
             gravity: {
-                y: 20
-            }
+                y: 0
+            },
+            debug: true
         }
     }
 });

@@ -1,10 +1,12 @@
 import Phaser from '../lib/phaser.js';
 import Ball from '../prefabs/Ball.js';
 
-const RUN_SPEED = 5,
-    JUP_SPEED = 12;
+const RUN_SPEED = 400,
+    JUP_SPEED = 200;
 
 export default class Play extends Phaser.Scene {
+    gravity = 500
+
     isStanding
 
     constructor() {
@@ -35,25 +37,18 @@ export default class Play extends Phaser.Scene {
         .setScale(3)
         // .setVisible(0);
         
-        this.matter.world.convertTilemapLayer(this.groundLayer);
-        
-        this.groundCollider = this.matter.add.image(0, 336, 'tile-collider')
+        this.groundCollider = this.physics.add.image(0, 336, 'tile-collider')
+        .setOrigin(0)
+        .setImmovable(true)
         .setScale(50, 1)
-        .setStatic(true)
         .setVisible(0);
-        this.groundCollider2 = this.matter.add.image(1436, 560, 'tile-collider')
+        this.groundCollider2 = this.physics.add.image(1436, 560, 'tile-collider')
         .setScale(14, 1)
         .setAngle(45)
-        .setStatic(true)
         .setFriction(0.2)
         .setVisible(0);
 
-        this.player = new Ball(this, 250, 240, {
-            shape: {
-                type: 'circle',
-                radius: 32
-            }
-        });
+        this.player = new Ball(this, 250, 240);
 
         // // Collision
         // this.groundLayer.forEachTile((tile) => {
@@ -67,6 +62,10 @@ export default class Play extends Phaser.Scene {
         //         tile.physics.matterBody.setFriction(0);
         //     }
         // });
+
+        this.physics.add.collider(this.player, this.groundCollider, () => {
+            if (this.player.body.onFloor()) this.isStanding = true;
+        });
 
         // GUI
         this.pauseButton = this.add.image(width * 0.945, height * 0.08, 'pause-button')

@@ -9,7 +9,7 @@ export default new Phaser.Game({
     width: 960,
     height: 540,
     backgroundColor: '#f4cca1',
-    // pixelArt: 'true',
+    roundPixels: true,
     scene: [
         Preload,
         Play,
@@ -18,10 +18,7 @@ export default new Phaser.Game({
     physics: {
         default: 'matter',
         matter: {
-            debug: true,
-            gravity: {
-                y: 20
-            }
+            // debug: true
         }
     }
 });

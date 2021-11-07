@@ -28,28 +28,26 @@ export default class Preload extends Phaser.Scene {
         this.processBarBorder.strokeRect(0, 0, width * 0.4, 30);
 
         // Load the background image
-        this.load.image('background', 'assets/sprites/environment/background/bg.png');
+        this.load.image('background', 'assets/sprites/environment/background/background.png');
         this.load.image('background-2', 'assets/sprites/environment/background/scs.jpg');
 
         // Load the ball image
-        this.load.image('ball', 'assets/sprites/ball/volley-ball.png');
+        this.load.image('ball', 'assets/sprites/ball/ball.png');
+        
+        // Load object images
+        this.load.image('box', 'assets/sprites/environment/object/box.png');
+        this.load.json('box-shape', 'assets/sprites/environment/object/box-shape.json');
 
         // Load GUI
-        this.load.image('pause-button', 'assets/sprites/gui/Pause.png');
-        this.load.image('pause-button-hover', 'assets/sprites/gui/Pause_hover.png');
-        this.load.image('pause-button-click', 'assets/sprites/gui/Pause_click.png');
-        this.load.image('resume-button', 'assets/sprites/gui/Resume.png');
-        this.load.image('resume-button-hover', 'assets/sprites/gui/Resume_hover.png');
-        this.load.image('resume-button-click', 'assets/sprites/gui/Resume_click.png');
+        this.load.image('control-button', 'assets/sprites/gui/btnControl.png');
 
         // Load platform tilemap
-        this.load.tilemapTiledJSON('map-01', 'assets/sprites/environment/tiles/map-01.json');
-        this.load.image('tileset', 'assets/sprites/environment/tiles/tile.png');
-        this.load.image('tile-collider', 'assets/sprites/environment/tiles/tile_collider.png');
+        this.load.tilemapTiledJSON('map-01', 'assets/sprites/environment/tile/map-01.json');
+        this.load.image('tileset', 'assets/sprites/environment/tile/tileset.png');
 
         // Sound effect
         this.load.audio('jump', 'assets/sounds/jump.wav');
-        this.load.audio('lose', 'assets/sounds/lose.wav');
+        this.load.audio('land', 'assets/sounds/land.wav');
 
         // Loading statement
         this.load.on('progress', (val) => {

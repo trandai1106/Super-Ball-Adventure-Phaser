@@ -2,9 +2,9 @@ import Phaser from '../lib/phaser.js';
 import Ball from '../prefabs/Ball.js';
 import Box from '../prefabs/Box.js';
 
-const RUN_FORCE = 0.05,
-    MAX_RUN_SPEED = 6,
-    JUMP_SPEED = 12;
+const RUN_FORCE = 0.1,
+    MAX_RUN_SPEED = 5,
+    JUMP_SPEED = 10;
 
 export default class Play extends Phaser.Scene {
     isStanding
@@ -49,9 +49,9 @@ export default class Play extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(this.groundLayer);
         this.matter.world.convertTilemapLayer(this.hillLayer);
 
-        this.player = new Ball(this, 250, 240, 32);
+        this.player = new Ball(this, 550, 240, 32);
 
-        this.box = new Box(this, 350, 240);
+        this.box = new Box(this, 350, 280);
 
         this.setCollisionObject(this.box, this.player);
 
@@ -60,7 +60,7 @@ export default class Play extends Phaser.Scene {
         this.setCollisionLayer(this.hillLayer, this.player);
 
         // GUI
-        this.fullScreenButton = this.add.image(width * 0.95, height * 0.09, 'control-button')
+        this.fullScreenButton = this.add.image(width * 0.95, height * 0.09, 'full-screen-button')
         .setScale(0.3)
         .setScrollFactor(0)
         .setInteractive();
@@ -88,7 +88,6 @@ export default class Play extends Phaser.Scene {
                 this.scale.stopFullscreen();
             }
         });
-
         // Move left button
         this.moveLeftButton.on('pointerdown', () => {
             this.isClickLeft = true;
@@ -131,7 +130,7 @@ export default class Play extends Phaser.Scene {
 
         // Bound the camera, follow the player
         this.cameras.main
-        .setBounds(0, 0, 1920, height * 1)
+        .setBounds(0, - height * 0.5, 1920, height * 2)
         .startFollow(this.player)
         .setDeadzone(this.scale.width * 0.3, this.scale.height * 0.5);
         // Fix bug line between tiles of tilemap
@@ -168,7 +167,6 @@ export default class Play extends Phaser.Scene {
     setCollisionLayer(_layer, _player) {
         _layer.forEachTile((tile) => {
             if (tile.index != -1) {
-                tile.physics.matterBody.setFriction(0);
                 const _body = tile.physics.matterBody.body;
                 _player.groundSensor.setOnCollideWith(_body.parts, (part) => {
                     if (!this.isStanding) {
@@ -181,6 +179,12 @@ export default class Play extends Phaser.Scene {
                 
                 for (var i = 0; i < _body.parts.length; i++) {
                     _body.parts[i].slop = 0;
+                    _body.parts[i].friction = 0.1;
+                }
+
+                // Tile at left and right of hill
+                if ([11, 16, 17, 26, 27, 32].includes(tile.index)) {
+                    tile.physics.matterBody.setFriction(0);
                 }
             }
         });

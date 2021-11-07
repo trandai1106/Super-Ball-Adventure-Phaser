@@ -40,6 +40,7 @@ export default class Preload extends Phaser.Scene {
 
         // Load GUI
         this.load.image('control-button', 'assets/sprites/gui/btnControl.png');
+        this.load.image('full-screen-button', 'assets/sprites/gui/btnFullScreen.png');
 
         // Load platform tilemap
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/environment/tile/map-01.json');

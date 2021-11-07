@@ -10,6 +10,9 @@ export default new Phaser.Game({
     height: 540,
     backgroundColor: '#f4cca1',
     roundPixels: true,
+    input: {
+        activePointers: 3,
+    },
     scene: [
         Preload,
         Play,

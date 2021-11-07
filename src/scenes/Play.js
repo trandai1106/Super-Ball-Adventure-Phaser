@@ -60,20 +60,36 @@ export default class Play extends Phaser.Scene {
         this.setCollisionLayer(this.hillLayer, this.player);
 
         // GUI
+        this.fullScreenButton = this.add.image(width * 0.95, height * 0.09, 'control-button')
+        .setScale(0.3)
+        .setScrollFactor(0)
+        .setInteractive();
         this.moveLeftButton = this.add.image(width * 0.09, height * 0.84, 'control-button')
         .setFlipX(true)
         .setScale(0.6)
-        .setScrollFactor(0);
+        .setScrollFactor(0)
+        .setInteractive();
         this.moveRightButton = this.add.image(width * 0.24, height * 0.84, 'control-button')
         .setScale(0.6)
-        .setScrollFactor(0);
+        .setScrollFactor(0)
+        .setInteractive();
         this.jumpButton = this.add.image(width * 0.9, height * 0.82, 'control-button')
         .setScale(0.74)
         .setAngle(-90)
-        .setScrollFactor(0);
+        .setScrollFactor(0)
+        .setInteractive();
+
+        // Full screen button
+        this.fullScreenButton.on('pointerdown', () => {
+            if (!this.scale.isFullscreen) {
+                this.scale.startFullscreen();
+            }
+            else {
+                this.scale.stopFullscreen();
+            }
+        });
 
         // Move left button
-        this.moveLeftButton.setInteractive();
         this.moveLeftButton.on('pointerdown', () => {
             this.isClickLeft = true;
             this.moveLeftButton.setAlpha(0.5);
@@ -88,7 +104,6 @@ export default class Play extends Phaser.Scene {
             this.moveLeftButton.setAlpha(1);
         });
         // Move right button
-        this.moveRightButton.setInteractive();
         this.moveRightButton.on('pointerdown', () => {
             this.isClickRight = true;
             this.moveRight();
@@ -103,7 +118,6 @@ export default class Play extends Phaser.Scene {
             this.moveRightButton.setAlpha(1);
         });
         // Jump button
-        this.jumpButton.setInteractive();
         this.jumpButton.on('pointerdown', () => {
             this.jump();
             this.jumpButton.setAlpha(0.5);

@@ -10,6 +10,10 @@ export default new Phaser.Game({
     height: 540,
     backgroundColor: '#f4cca1',
     roundPixels: true,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     input: {
         activePointers: 3,
     },

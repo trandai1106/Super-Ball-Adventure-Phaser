@@ -16,13 +16,10 @@ export default class Box extends Phaser.Physics.Matter.Image {
 
         scene.add.existing(this);
         this.setBounce(0)
-        .setFriction(0.2, 0.1, 0.2)
-        .setMass(35);
+        .setFriction(0.01, 0.05, 2)
+        .setMass(90);
         
-        this.body.inertia = 20;
-
-        for (var i = 0; i < this.body.parts.length; i++) {
-            this.body.parts[i].slop = 0;
-        }
+        this.body.inertia = 100;
+        this.body.slop = 0;
     }
 }

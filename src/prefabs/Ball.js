@@ -20,20 +20,21 @@ export default class Ball extends Phaser.Physics.Matter.Sprite {
         });
         scene.add.existing(this);
         this.setBounce(0)
-        .setFriction(2, 0.02, 0.5)
-        .setMass(15);
+        .setFriction(0.1, 0.01, 0.5)    
+        .setMass(60);
         this.body.slop = 0;
-        this.body.inertia = 200;
 
         this.groundSensor = new GroundSensor(scene, x, y, this);
     }
 
-    centerOfGravity() {
-        return { x: this.body.position.x, y: this.body.position.y - 0.1 }
+    centerOfGravity(onGround) {
+        // if (onGround) 
+        return { x: this.body.position.x, y: this.body.position.y - this.body.circleRadius * 0.6 }
+        // else return { x: this.body.position.x, y: this.body.position.y }
     }
    
     _update() {
         this.groundSensor.x = this.x;
-        this.groundSensor.y = this.y + this.height * 0.5;
+        this.groundSensor.y = this.y + this.height * 0.3;
     }
 }

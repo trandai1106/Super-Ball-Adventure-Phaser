@@ -11,7 +11,7 @@ export default class GroundSensor extends Phaser.Physics.Matter.Image {
     constructor(scene, x, y, parent) {
         super(scene.matter.world, x, y + parent.height * 0.5, 'ball', null, {
             isSensor: true
-        }).setScale(0.5, 0.05)
+        }).setScale(0.1, 0.5)
         .setVisible(false);
         scene.add.existing(this);
     }

@@ -46,6 +46,12 @@ export default class Preload extends Phaser.Scene {
         this.load.tilemapTiledJSON('map-01', 'assets/sprites/environment/tile/map-01.json');
         this.load.image('tileset', 'assets/sprites/environment/tile/tileset.png');
 
+        // Load dust effect animation
+        this.load.spritesheet('dust', 'assets/sprites/VFX/dust.png', {
+            frameWidth: 256,
+            frameHeight: 256
+        });
+
         // Sound effect
         this.load.audio('jump', 'assets/sounds/jump.wav');
         this.load.audio('land', 'assets/sounds/land.wav');
@@ -62,6 +68,13 @@ export default class Preload extends Phaser.Scene {
     }
 
     create() {
+        this.anims.create({ key: "anim-dust",
+            frameRate: 10,
+            frames: this.anims.generateFrameNumbers("dust", { start: 0, end: 7 }),
+            repeat: 0,
+            hideOnComplete: true
+        });
+
         // Delay and change scene
         this.time.addEvent({
             delay: 1000,

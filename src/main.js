@@ -23,7 +23,7 @@ export default new Phaser.Game({
     physics: {
         default: 'matter',
         matter: {
-            // debug: true
+            // debug: true,
         }
     }
 });

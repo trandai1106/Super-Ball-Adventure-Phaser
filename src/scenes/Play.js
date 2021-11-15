@@ -98,9 +98,9 @@ export default class Play extends Phaser.Scene {
         .setFriction(groundFriction, 0, 0);  
 
 
-        this.player = new Ball(this, 350, 240, 32);
+        this.player = new Ball(this, 350, 480, 32);
 
-        this.box = new Box(this, 450, 280);
+        this.box = new Box(this, 450, 453);
 
         this.setCollisionObject(this.box, this.player);
 
